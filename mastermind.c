@@ -10,16 +10,21 @@ int couleurValide(char color[50]) {
     return 0;
 }
 
-void initialiserGrille(char couleur[4][50]){
+void initialiserCouleurs(char couleur[][50], int nb_couleurs) {
     int couleurs_valides = 0;
     while (!couleurs_valides) {
-        printf("Choisis une combinaison de 4 couleurs ");
+        printf("\nChoisis une combinaison de %d couleurs\n", nb_couleurs);
         printf("parmis : rouge, jaune, bleu, orange, vert, blanc, violet, rose\n");
         
-        scanf("%s %s %s %s", couleur[0], couleur[1], couleur[2], couleur[3]);
+        if (nb_couleurs == 4) {
+            scanf("%s %s %s %s", couleur[0], couleur[1], couleur[2], couleur[3]);
+        }
+        else {
+            scanf("%s %s %s %s %s", couleur[0], couleur[1], couleur[2], couleur[3], couleur[4]);
+        }
 
         couleurs_valides = 1;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < nb_couleurs; i++) {
             if (!couleurValide(couleur[i])) {
                 couleurs_valides = 0;
                 break;
@@ -32,10 +37,10 @@ void initialiserGrille(char couleur[4][50]){
     }
 }
 
-void verifierGrille(char couleur_a_devine[4][50], char couleur_essai[4][50], int *correct, int *partiellement_correct) {
+void verifierGrille(char couleur_a_devine[][50], char couleur_essai[][50], int *correct, int *partiellement_correct, int nb_couleurs) {
     *correct = 0;
     *partiellement_correct = 0;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < nb_couleurs; i++)
     {
         if (strcmp(couleur_a_devine[i], couleur_essai[i]) == 0)
         {
@@ -48,5 +53,6 @@ void verifierGrille(char couleur_a_devine[4][50], char couleur_essai[4][50], int
                 *partiellement_correct += 1;
             }   
         }        
-    }    
+    }  
+    *partiellement_correct -= *correct;  
 }
