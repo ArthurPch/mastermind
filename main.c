@@ -5,16 +5,19 @@ int main() {
     char couleur_essai[4][50];
     int correct = 0;
     int partiellement_correct = 0;
-    
+    int tentatives = 1;
+    system("cls");
+    printf("Bienvenue dans le MASTERMIND !\n");
     initialiserGrille(couleur_a_devine);
+    system("cls");
     
-    while (correct != 4) {
-        printf("Choisis une combinaison de 4 couleurs : ");
-        scanf("%s %s %s %s", couleur_essai[0], couleur_essai[1], couleur_essai[2], couleur_essai[3]);
-        
+    while (correct != 4 && tentatives < 10) {
+        printf("Essais : %d/10\n", tentatives);
+        initialiserGrille(couleur_essai);        
         verifierGrille(couleur_a_devine, couleur_essai, &correct, &partiellement_correct);
-        printf("Il y a %d correct(s) et %d partiellement correct(s)\n", correct, partiellement_correct);
-        Sleep(1000);
+        printf("Il y a %d correct(s) et %d partiellement correct(s)\n\n", correct, partiellement_correct);
+        Sleep(2000);
+        tentatives++;
     }
     
     return 0;
